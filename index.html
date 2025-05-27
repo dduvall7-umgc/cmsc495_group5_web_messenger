@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secure Message Service</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>Secure Message Service</header>
+
+  <div class="app-container">
+    <aside class="sidebar">
+      <button class="new-chat-btn" onclick="createNewChat()">+ New Chat</button>
+      <div class="chat-list" id="chatList">
+        <div class="empty-state" id="noChats">No conversations yet.</div>
+      </div>
+    </aside>
+
+    <section class="chat-area">
+      <div class="messages-container" id="messagesContainer">
+        <div class="empty-state">Select a chat to start messaging.</div>
+      </div>
+
+      <form class="message-form" id="messageForm">
+        <input type="text" id="messageInput" placeholder="Message..." />
+        <button type="submit">Send</button>
+      </form>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
