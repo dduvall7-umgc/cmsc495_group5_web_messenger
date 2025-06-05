@@ -7,6 +7,9 @@ var messageInput = document.getElementById("messageInput");
 var messagesContainer = document.getElementById("messagesContainer");
 var messagesContainerTwo = document.getElementById("messagesContainerTwo");
 
+//color scheme
+var color = localStorage.getItem('fontColor');
+
 // ==============================
 // INITIAL SETUP & USER CHECK
 // ==============================
@@ -58,8 +61,6 @@ function saveUserName(chatName) {
 // ==============================
 
 function sendMessage() {
-    let userMessage = document.getElementById("messageInput").value;
-
     // Make a POST request to server (processor.php)
     fetch("processor.php", {
         method: "POST",
@@ -67,7 +68,7 @@ function sendMessage() {
             "Content-Type": "application/x-www-form-urlencoded"
         },
         body: `userMessage=${encodeURIComponent(
-            getUserName + userMessage + "<br>" + "<?php $recordName = '" + getUserName + "'; ?>"
+            "<p id='userColorNameId' class="+color+"> ChatName: (" + getUserName + ") </p>"  + messageInput.value + "<br><br>" + "<?php $recordName = '" + getUserName + "'; ?>"
         )}&fileName=${encodeURIComponent(getUserName + ".php")}&recordName=${encodeURIComponent(getUserName + "Direct" + ".php")}`
     })
     .then(response => response.text()); // Handle response if needed
@@ -98,6 +99,7 @@ function deleteChatName() {
     localStorage.clear(); // Clear stored chat data
     document.getElementById("filename").disabled = false;
     document.getElementById("filenameDirect").disabled = false;
+    
     // Optionally: reload the page to reset state
     // location.reload();
 }
@@ -111,14 +113,29 @@ function generateLink() {
 
     // === LOCAL TESTING ===\
     
-    messagesContainerTwo.innerHTML = "<h1> Copy and share this link </h1><i>http://127.0.0.1/Capstone/" + 
-        newChat.innerHTML + "Direct.php</i><br><br>" +
-        "<a href='http://127.0.0.1/Capstone/" + newChat.innerHTML + "Direct.php'>Access the chat here.</a>";
-    
+    messagesContainerTwo.innerHTML = "<p> Copy and share this link </p><i>http://127.0.0.1/Capstone/" + 
+        newChat.innerHTML + "Direct.php</i><br>" +
+        "<a href='http://127.0.0.1/Capstone/" + newChat.innerHTML + "Direct.php'>Access the chat here.</a> <br><br>";
 
     // === PRODUCTION ===
-    //messagesContainerTwo.innerHTML = "<h1> Copy and share this link </h1><i>https://project.purposeseven.com/" +
+    //messagesContainerTwo.innerHTML = "<p> Copy and share this link </p><i>https://project.purposeseven.com/" +
     //    newChat.innerHTML + "Direct.php</i><br><br>" +
     //    "<a href='https://project.purposeseven.com/" +
     //    newChat.innerHTML + "Direct.php'>Access the chat here.</a>";
 }
+
+// ==============================
+// USERS MESSAGE COLOR SCHEME
+// ==============================
+
+    const colorForm = document.getElementById('colorForm');
+    const sampleText = document.getElementById('userColorNameId');
+  
+        // Add change event listener
+    colorForm.addEventListener('change', (event) => {
+      if (event.target.name === 'color') {
+        const selectedColor = event.target.value;
+        localStorage.setItem('fontColor', selectedColor);
+      }
+    });
+    
