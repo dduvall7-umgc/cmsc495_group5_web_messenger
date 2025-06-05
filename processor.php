@@ -53,7 +53,7 @@ if (\$server$bracket'REQUEST_METHOD'] === 'POST') {
         // Security recommendation:
         // return htmlspecialchars(\$contentFile);
 
-        return \$contentFile;
+        return $contentFile;
     }
 
     // Read chat history from file
@@ -70,7 +70,8 @@ if (\$server$bracket'REQUEST_METHOD'] === 'POST') {
 
 <body>
 
-  <header>Direct Messaging Service</header>
+  <header id='userColorNameId' class='userColorNameClass'>Direct Messaging Service</header>
+  <p id='messagesContainerTwo' class='messagesContainerTwo'></p>
 
   <div class='dialog-backdrop' id='dialog'>
     <div class='dialog-box'></div>
@@ -78,7 +79,7 @@ if (\$server$bracket'REQUEST_METHOD'] === 'POST') {
 
   <!-- Chat Loader -->
   <form method='post'>
-    <button id='loadForm' type='submit'>Load Chat</button>
+    <button class='new-chat-btn' id='loadForm' type='submit'>Load Chat</button>
   </form>
 
   <div class='app-container'>
@@ -88,6 +89,18 @@ if (\$server$bracket'REQUEST_METHOD'] === 'POST') {
       <input type='text' id='chatName' placeholder='Chat Name' />
       <p>-</p>
       <button class='new-chat-btn' id='newChat' onclick='createNewChat()'>+ New Chat</button>
+
+      <form id='colorForm' class='new-chat-btn' >
+        <p>Change Font Color</p> <br>
+        <label><input type='radio' name='color' value='blue'> Blue</label><br>
+        <label><input type='radio' name='color' value='orange'> Orange</label><br>
+        <label><input type='radio' name='color' value='green'> Green</label><br>
+        <label><input type='radio' name='color' value='red'> Red</label><br>
+        <label><input type='radio' name='color' value='yellow'> Yellow</label><br>
+        <label><input type='radio' name='color' value='black'> Black</label><br>
+        <label><input type='radio' name='color' value='default'> Default</label><br>
+        <label><input type='radio' name='color' value='grey'> Grey</label><br>
+      </form>
 
       <!-- Chat list area -->
       <div class='chat-list' id='chatList'>
@@ -161,6 +174,13 @@ if (\$server$bracket'REQUEST_METHOD'] === 'POST') {
           });
       }, 2000);
     });
+    
+    
+    
+    
+    
+    
+    
   </script>
 
 </body>
