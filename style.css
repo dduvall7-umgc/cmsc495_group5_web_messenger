@@ -1,124 +1,163 @@
-// ==============================
-// GLOBAL VARIABLES
-// ==============================
-var newChat = document.getElementById("newChat");
-var chatName = document.getElementById("chatName");
-var messageInput = document.getElementById("messageInput");
-var messagesContainer = document.getElementById("messagesContainer");
-var messagesContainerTwo = document.getElementById("messagesContainerTwo");
-
-// ==============================
-// INITIAL SETUP & USER CHECK
-// ==============================
-
-// Check if a chat name is stored in localStorage
-if (localStorage.getItem("chatName") === null) {
-    // Set a default chat name and warn user
-    localStorage.setItem("chatName", "-");
-    alert("Do not share personal information");
-} else {
-    // Hide the chat name input if name already exists (to prevent renaming)
-    chatName.style.display = "none";
+/* ==========================
+   GLOBAL STYLES
+========================== */
+* {
+  box-sizing: border-box; /* Ensures padding/border don't increase element width/height */
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif; /* Base font */
 }
 
-// Retrieve chat name from storage
-var getUserName = localStorage.getItem("chatName");
-if (getUserName.length > 1) {
-    newChat.innerHTML = getUserName;
-    messageInput.placeholder = "Message By: " + getUserName;
-    newChat.style.color = "yellow";
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full height layout */
 }
 
-// ==============================
-// CREATE NEW CHAT
-// ==============================
-
-function createNewChat() {
-    // Use default chat name if input is empty
-    if (chatName.value === "") {
-        chatName.value = "Open Chat to <br> Anyone in the World";
-    }
-
-    // Update display and placeholder text
-    newChat.innerHTML = chatName.value;
-    messageInput.placeholder = "Message By: " + chatName.value;
-    newChat.style.color = "yellow";
-
-    // Save chat name to localStorage
-    saveUserName(chatName.value);
+/* ==========================
+   USER MESSAGE COLOR SCHEME
+========================== */
+.blue{
+  color: blue;
+}
+.orange{
+  color: orange;
+}
+.green{
+  color: green;
+}
+.red{
+  color: red;
+}
+.yellow{
+  color: yellow;
+}
+.black{
+  color:black;
+}
+.default{
+  color:#2d3e50;
+}
+.grey{
+  color:dimgray;
 }
 
-// Save chat name to localStorage
-function saveUserName(chatName) {
-    localStorage.setItem("chatName", chatName);
+/* ==========================
+   HEADER
+========================== */
+header {
+  background-color: #2d3e50; /* Dark blue-gray */
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: bold;
 }
 
-// ==============================
-// SEND MESSAGE
-// ==============================
-
-function sendMessage() {
-    let userMessage = document.getElementById("messageInput").value;
-
-    // Make a POST request to server (processor.php)
-    fetch("processor.php", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: `userMessage=${encodeURIComponent(
-            getUserName + userMessage + "<br>" + "<?php $recordName = '" + getUserName + "'; ?>"
-        )}&fileName=${encodeURIComponent(getUserName + ".php")}&recordName=${encodeURIComponent(getUserName + "Direct" + ".php")}`
-    })
-    .then(response => response.text()); // Handle response if needed
-
-    // Only applies on index.php
-    generateLink();
+/* ==========================
+   APP LAYOUT
+========================== */
+.app-container {
+  display: flex;
+  flex: 1;
+  overflow: hidden; /* Prevent content overflow */
 }
 
-// ==============================
-// UI INTERACTIONS
-// ==============================
-
-// Highlight message input field on focus
-messageInput.addEventListener("focus", function () {
-    messageInput.style.backgroundColor = "yellow";
-});
-
-// Reset background on blur
-messageInput.addEventListener("blur", function () {
-    messageInput.style.backgroundColor = "";
-});
-
-// ==============================
-// SESSION CLEARING
-// ==============================
-
-function deleteChatName() {
-    localStorage.clear(); // Clear stored chat data
-    document.getElementById("filename").disabled = false;
-    document.getElementById("filenameDirect").disabled = false;
-    // Optionally: reload the page to reset state
-    // location.reload();
+/* ==========================
+   SIDEBAR (LEFT PANEL)
+========================== */
+.sidebar {
+  width: 250px;
+  background-color: #f4f4f4; /* Light gray */
+  border-right: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
 }
 
-// ==============================
-// LINK GENERATION
-// ==============================
+/* Chat list inside the sidebar */
+.chat-list {
+  flex: 1;
+  overflow-y: auto;
+  margin-top: 1rem;
+}
 
-function generateLink() {
-    // Show a shareable link depending on deployment environment
+/* Individual chat item styling */
+.chat-item {
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
 
-    // === LOCAL TESTING ===\
-    
-    messagesContainerTwo.innerHTML = "<h1> Copy and share this link </h1><i>http://127.0.0.1/Capstone/" + 
-        newChat.innerHTML + "Direct.php</i><br><br>" +
-        "<a href='http://127.0.0.1/Capstone/" + newChat.innerHTML + "Direct.php'>Access the chat here.</a>";
-    
+.chat-item:hover {
+  background-color: #eaeaea; /* Highlight on hover */
+}
 
-    // === PRODUCTION ===
-    //messagesContainerTwo.innerHTML = "<h1> Copy and share this link </h1><i>https://project.purposeseven.com/" +
-    //    newChat.innerHTML + "Direct.php</i><br><br>" +
-    //    "<a href='https://project.purposeseven.com/" +
-    //    newChat.innerHTML + "Direct.php'>Access the chat here.</a>";
+/* Placeholder text when no chats exist */
+.empty-state {
+  text-align: center;
+  color: #888;
+  margin-top: 2rem;
+  font-style: italic;
+}
+
+/* Button to create a new chat */
+.new-chat-btn {
+  padding: 0.5rem;
+  background-color: #2d3e50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+/* ==========================
+   CHAT AREA (RIGHT PANEL)
+========================== */
+.chat-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+/* Container for displaying chat messages */
+.messages-container {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fafafa; /* Very light gray */
+}
+
+/* ==========================
+   MESSAGE INPUT FORM
+========================== */
+.message-form {
+  display: flex;
+}
+
+/* Text input inside the form */
+.message-form input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px 0 0 5px;
+}
+
+/* Send button inside the form */
+.message-form button {
+  padding: 0.5rem 1rem;
+  background-color: #2d3e50;
+  color: white;
+  border: none;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
 }
