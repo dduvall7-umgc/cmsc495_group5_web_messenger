@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <!-- ==========================
        HEADER
   ========================== -->
-  <header>Direct Messaging Service</header>
+  <header  id="userColorNameId" class="userColorNameClass">Direct Messaging Service</header>
 
   <!-- ==========================
        DIALOG BOX (for future use)
@@ -70,8 +70,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <aside class="sidebar">
       <!-- Input: Chat name -->
       <input type="text" id="chatName" placeholder="Chat Name" />
-      <p>-</p>
-
+      
+      <!--up arrows to direct the user to the proper location-->
+      <p>&#8593;&#8593;&#8593;&#8593;</p>
+      
       <!-- Button: Enter Chat Name -->
       <button class="new-chat-btn" id="newChat" onclick="createNewChat()">+ Enter Chat Name</button>
 
@@ -82,6 +84,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
       </div>
 
+      
+
+      
+      
       <!-- Form: End session (clear server-side data) -->
       <form action="deleteChat.php" method="post">
         <label for="filename">Session Data</label>
@@ -122,6 +128,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
        JAVASCRIPT INCLUDES & LOGIC
   ========================== -->
   <script src="script.js"></script>
-
+  
 </body>
 </html>
