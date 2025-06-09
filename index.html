@@ -1,35 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php
-// ==============================
-// PHP BACKEND: READ CHAT FILE
-// ==============================
-
-$content = ""; // Initialize content holder
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    // Function to safely read content from a file
-    function readFileContent($filePath) {
-        if (!file_exists($filePath)) {
-            return "File does not exist.";
-        }
-
-        $content = file_get_contents($filePath);
-        if ($content === false) {
-            return "Failed to read file.";
-        }
-
-        // Optional: Uncomment below to prevent XSS by escaping HTML
-        // return htmlspecialchars($content);
-
-        return $content;
-    }
-
-    // Load chat content from file (Test.php)
-    $content = readFileContent("Test.php");
-}
-?>
   
 <head>
   <!-- ==========================
@@ -38,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Direct Messaging Service</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="CSS/style.css" />
 </head>
 
 <body>
@@ -101,10 +71,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <section class="chat-area">
       <!-- Chat messages display -->
       <div class="messages-container" id="messagesContainerTwo">
-        <?php if ($content): ?>
-          <h2>File Content:</h2>
-          <p><?php echo $content; ?></p>
-        <?php endif; ?>
 
         <!-- Default empty-state instructions -->
         <div class="empty-state">
@@ -127,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <!-- ==========================
        JAVASCRIPT INCLUDES & LOGIC
   ========================== -->
-  <script src="script.js"></script>
+  <script src="index_Script.js"></script>
   
 </body>
 </html>
