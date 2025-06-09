@@ -29,17 +29,14 @@ body {
 .red{
   color: red;
 }
-.yellow{
-  color: yellow;
-}
 .black{
   color:black;
 }
-.default{
-  color:#2d3e50;
+.darkmagenta{
+  color:darkmagenta;
 }
-.grey{
-  color:dimgray;
+.dodgerblue{
+  color:dodgerblue;
 }
 
 /* ==========================
