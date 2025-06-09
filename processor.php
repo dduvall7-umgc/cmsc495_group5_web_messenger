@@ -10,7 +10,7 @@ if (isset($_POST['userMessage'])) {
     $recordName = $_POST['recordName'];
 
     // Append message to the designated file
-    file_put_contents($fileName, $userMessage, FILE_APPEND);
+    file_put_contents('../storageFiles/'.$fileName, $userMessage, FILE_APPEND);
 
     // Optional: Delete temporary file if requested
     $deleteMe = $_POST['deleteMe'];
@@ -18,6 +18,7 @@ if (isset($_POST['userMessage'])) {
 
     // Log what was deleted (for debugging)
     echo $deleteMe . " <<<<<<<<<<<<";
+  
 }
 
 // ==============================
@@ -35,37 +36,11 @@ $bracket = '[';
 $generateMessageSystem = "<!DOCTYPE html>
 <html lang='en'>
 
-<?php
-\$contentFile = '';
-if (\$server$bracket'REQUEST_METHOD'] === 'POST') {
-
-    // Function to read the contents of a file
-    function readFileContent(\$fileDirectory) {
-        if (!file_exists(\$fileDirectory)) {
-            return 'File does not exist.';
-        }
-
-        \$contentFile = file_get_contents(\$fileDirectory);
-        if (\$contentFile === false) {
-            return 'Failed to read file.';
-        }
-
-        // Security recommendation:
-        // return htmlspecialchars(\$contentFile);
-
-        return $contentFile;
-    }
-
-    // Read chat history from file
-    \$contentFile = readFileContent('$fileName');
-}
-?>
-
 <head>
   <meta charset='UTF-8' />
   <meta name='viewport' content='width=device-width, initial-scale=1.0' />
   <title>Direct Messaging Service</title>
-  <link rel='stylesheet' href='style.css' />
+  <link rel='stylesheet' href='../CSS/style.css' />
 </head>
 
 <body>
@@ -96,10 +71,9 @@ if (\$server$bracket'REQUEST_METHOD'] === 'POST') {
         <label><input type='radio' name='color' value='orange'> Orange</label><br>
         <label><input type='radio' name='color' value='green'> Green</label><br>
         <label><input type='radio' name='color' value='red'> Red</label><br>
-        <label><input type='radio' name='color' value='yellow'> Yellow</label><br>
         <label><input type='radio' name='color' value='black'> Black</label><br>
-        <label><input type='radio' name='color' value='default'> Default</label><br>
-        <label><input type='radio' name='color' value='grey'> Grey</label><br>
+        <label><input type='radio' name='color' value='darkmagenta'> Dark Magenta</label><br>
+        <label><input type='radio' name='color' value='dodgerblue'> Dodger Blue</label><br>
       </form>
 
       <!-- Chat list area -->
@@ -108,7 +82,7 @@ if (\$server$bracket'REQUEST_METHOD'] === 'POST') {
       </div>
 
       <!-- End session / delete chat form -->
-      <form action='deleteChat.php' method='post'>
+      <form action='../centralProcessing/deleteChat.php' method='post'>
         <label for='filename'>Session Data:</label>
         <input type='text' id='filename' name='filename' required disabled value='$fileName' placeholder='Set'>
         <input type='text' id='filenameDirect' name='filenameDirect' required disabled value='$recordName' placeholder='Set'>
@@ -120,10 +94,6 @@ if (\$server$bracket'REQUEST_METHOD'] === 'POST') {
     <!-- Main chat area -->
     <section class='chat-area'>
       <div class='messages-container' id='messagesContainer'>
-        <?php if (\$contentFile): ?>
-            <h2>File Content:</h2>
-            <p><?php echo \$contentFile; ?></p>
-        <?php endif; ?>
         <div class='empty-state'>Select a chat to start messaging.</div>
       </div>
 
@@ -133,8 +103,8 @@ if (\$server$bracket'REQUEST_METHOD'] === 'POST') {
     </section>
   </div>
 
-  <!-- JavaScript for chat interactivity -->
-  <script src='script.js'></script>
+  <!-- JavaScript/centralProcessing for chat interactivity -->
+  <script src='../centralProcessing/script.js'></script>
 
   <script>
     var messagesContainer = document.getElementById('messagesContainer');
@@ -167,7 +137,7 @@ if (\$server$bracket'REQUEST_METHOD'] === 'POST') {
 
       // Repeatedly fetch chat content from server
       pollingInterval = setInterval(function() {
-        fetch('$fileName')
+        fetch('../storageFiles/$fileName')
           .then(response => response.text())
           .then(data => {
             messagesContainer.innerHTML = data;
@@ -191,5 +161,5 @@ if (\$server$bracket'REQUEST_METHOD'] === 'POST') {
 // ==============================
 
 // Save the dynamically generated HTML+PHP content to a file
-file_put_contents($recordName, $generateMessageSystem);
+file_put_contents('../generatedInterface/'.$recordName, $generateMessageSystem);
 ?>
