@@ -1,16 +1,17 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $filename = basename($_POST["filename"]);  // Sanitize input
-    $filePath = __DIR__ . '/' . $filename;
+    $filePath = '../storageFiles/' . $filename;
 
     if (file_exists($filePath)) {
         if (unlink($filePath)) {
-            echo "File '$filename' deleted successfully.";
+            echo  "Session ended successfully.";
         } else {
-            echo "Failed to delete '$filename'. Check permissions.";
+            echo "Failed to end session. Check permissions.";
+            
         }
     } else {
-        echo "File '$filename' does not exist.";
+        echo "Session does not exist.";
     }
 } else {
     echo "Invalid request method.";
@@ -18,16 +19,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $filename = basename($_POST["filenameDirect"]);  // Sanitize input
-    $filePath = __DIR__ . '/' . $filename;
+    $filePath = '../generatedInterface/'. $filename;
 
     if (file_exists($filePath)) {
         if (unlink($filePath)) {
-            echo "File '$filename' deleted successfully.";
+            echo  "Session ended successfully.";
         } else {
-            echo "Failed to delete '$filename'. Check permissions.";
+            echo "Failed to end session. Check permissions.";
         }
     } else {
-        echo "File '$filename' does not exist.";
+        echo "Session does not exist.";
     }
 } else {
     echo "Invalid request method.";
@@ -37,11 +38,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="refresh" content="0; URL='index.php'" />
+  <meta http-equiv="refresh" content="0; URL='../index.php'" />
   <title>Redirecting...</title>
 </head>
 <body>
-  <p>If you are not redirected automatically, <a href="index.php">click here</a>.</p>
+  <p>If you are not redirected automatically, <a href="../index.php">click here</a>.</p>
 </body>
 </html>
 
