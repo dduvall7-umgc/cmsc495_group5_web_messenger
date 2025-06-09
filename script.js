@@ -62,7 +62,7 @@ function saveUserName(chatName) {
 
 function sendMessage() {
     // Make a POST request to server (processor.php)
-    fetch("processor.php", {
+    fetch("../centralProcessing/processor.php", {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
@@ -115,7 +115,7 @@ function generateLink() {
     
     messagesContainerTwo.innerHTML = "<p> Copy and share this link </p><i>http://127.0.0.1/Capstone/" + 
         newChat.innerHTML + "Direct.php</i><br>" +
-        "<a href='http://127.0.0.1/Capstone/" + newChat.innerHTML + "Direct.php'>Access the chat here.</a> <br><br>";
+        "<a href='http://127.0.0.1/Capstone/generatedInterface/" + newChat.innerHTML + "Direct.php'>Access the chat here.</a> <br><br>";
 
     // === PRODUCTION ===
     //messagesContainerTwo.innerHTML = "<p> Copy and share this link </p><i>https://project.purposeseven.com/" +
