@@ -22,11 +22,6 @@ The Direct Messaging Service is a web-based application that allows users to cre
 - A modern web browser (e.g., Chrome, Firefox)
 - Write permissions for the `storageFiles/` and `generatedInterface/` directories
 
-## Installation
-
-
-
-
 ## Usage
 1. **Accessing the Server**
    -use the following link https://project.purposeseven.com/ on a internet connected host to access the service.
