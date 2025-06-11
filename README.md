@@ -1,7 +1,7 @@
 # Direct Messaging Service
 
 ## Overview
-The Direct Messaging Service is a web-based application that allows users to create, join, and participate in chat sessions. Users can name their chats, send messages with customizable font colors, share chat links, and end sessions to clear data. The application uses PHP for backend processing, JavaScript for frontend interactivity, and CSS for styling.
+The Direct Messaging Service is a web-based application that allows users to create, join, and participate in chat sessions. Users can name their chats, send messages with customizable font colors, share chat links, and end sessions to clear data. The application uses PHP for backend processing, JavaScript for frontend interactivity, and CSS for styling. The service is currently running on a web server accessable via https://project.purposeseven.com/. 
 
 ## Features
 - **Dynamic Chat Creation**: Users can create named chat sessions and generate unique chat links.
@@ -28,20 +28,22 @@ The Direct Messaging Service is a web-based application that allows users to cre
 
 
 ## Usage
-1. **Starting a Chat**:
+1. **Accessing the Server**
+   -use the following link https://project.purposeseven.com/ on a internet connected host to access the service.
+3. **Starting a Chat**:
    - On the `index.php` page, enter a chat name in the provided input field.
    - Click the “+ Enter Chat Name” button to create a new chat.
    - Click “Load Chat” to initialize the chat session.
-2. **Sending Messages**:
+4. **Sending Messages**:
    - Type your message in the input field and click “Send”.
    - Messages are saved with the selected font color and displayed in the chat area.
-3. **Sharing Chats**:
+5. **Sharing Chats**:
    - After sending a message, a shareable link is generated (e.g., `http://127.0.0.1/Capstone/<chatName>Direct.php`).
    - Copy and share this link to allow others to join the chat.
-4. **Customizing Font Color**:
+6. **Customizing Font Color**:
    - Select a color from the sidebar’s radio buttons (e.g., Blue, Orange, Green).
    - The selected color applies to your chat name in messages.
-5. **Ending a Session**:
+7. **Ending a Session**:
    - Click “End Session” in the sidebar to delete the chat data and clear localStorage.
    - This removes the associated files from `storageFiles/` and `generatedInterface/`.
 
